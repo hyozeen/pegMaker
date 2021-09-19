@@ -11,3 +11,11 @@
         font-size: 3.5rem;
     }
 }
+
+#inputFileBtn {
+    float: left;
+}
+
+#uploadedImg {
+    float: left;
+}
