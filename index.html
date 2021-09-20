@@ -25,16 +25,23 @@
             <main class="px-3">
                 <h1>Make your own pegboard :)</h1>
                 <p class="lead">Upload your image which you want to make a pegboard</p>
-                <input
-                    type="file"
-                    id="inputFileBtn"
-                    onchange="getUploadedImage(this.files)"
-                    class="btn btn-lg btn-secondary fw-bold border-white bg-white text-black"
-                />
-                <canvas id="uploadedImg" width="800" height="800"></canvas>
                 <p class="lead">
+                    <input
+                        type="file"
+                        id="inputFileBtn"
+                        onchange="getUploadedImage(this.files)"
+                        class="btn btn-lg btn-secondary fw-bold border-white bg-white text-black"
+                    />
                     <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white text-black">Convert</a>
+                    <a
+                        href="#"
+                        id="downloadBtn"
+                        class="btn btn-lg btn-secondary fw-bold border-white bg-white text-black"
+                        download="peg-maker-image.png"
+                        >Download</a
+                    >
                 </p>
+                <canvas id="uploadedImg" width="800" height="800"></canvas>
             </main>
 
             <footer class="mt-auto text-white-50">
