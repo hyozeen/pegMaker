@@ -31,9 +31,25 @@ function getUploadedImage(files) {
         img.onload = function () {
             const ctx = elements.canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, 800, 800);
+            drawGrid(10);
         };
         img.src = e.target.result;
     };
 
     reader.readAsDataURL(file);
+}
+
+function drawGrid(number) {
+    const width = elements.canvas.width;
+    const height = elements.canvas.height;
+    const context = elements.canvas.getContext('2d');
+    const gap = width / number;
+    for (let x = 0; x <= width; x += gap) {
+        context.moveTo(x, 0);
+        context.lineTo(x, height);
+        context.moveTo(0, x);
+        context.lineTo(width, x);
+    }
+    context.strokeStyle = 'white';
+    context.stroke();
 }

@@ -16,6 +16,7 @@
     float: left;
 }
 
-#uploadedImg {
-    float: left;
+.custom-btn {
+    float: right;
+    margin: 5px;
 }
