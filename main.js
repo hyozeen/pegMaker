@@ -8,6 +8,7 @@ window.onload = function () {
 function getElements() {
     elements.downloadBtn = this.document.getElementById('downloadBtn');
     elements.canvas = this.document.getElementById('uploadedImg');
+    elements.gridSize = this.document.getElementById('gridSize');
 }
 
 function addClickEvent(element, handler) {
@@ -20,6 +21,7 @@ function downloadImage() {
 }
 
 function getUploadedImage(files) {
+    this.clearCanvas();
     const file = files[0];
 
     if (!file.type.match(/image.*/)) {
@@ -32,12 +34,19 @@ function getUploadedImage(files) {
         img.onload = function () {
             const ctx = elements.canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, 800, 800);
-            drawGrid(10);
+            const number = elements.gridSize.value;
+            drawGrid(number);
         };
         img.src = e.target.result;
     };
 
     reader.readAsDataURL(file);
+}
+
+function clearCanvas() {
+    const ctx = elements.canvas.getContext('2d');
+    ctx.clearRect(0, 0, elements.canvas.width, elements.canvas.height);
+    ctx.beginPath();
 }
 
 function drawGrid(number) {

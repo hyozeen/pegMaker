@@ -12,8 +12,20 @@
     }
 }
 
+canvas {
+    margin: 50px;
+}
+
 #inputFileBtn {
     float: left;
+}
+
+.leftItems {
+    float: left;
+    height: 52px;
+    margin-right: 20px;
+    font-size: 30px;
+    line-height: 52px;
 }
 
 .custom-btn {
