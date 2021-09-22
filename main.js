@@ -95,6 +95,32 @@ function makeGrayscale() {
     context.putImageData(imgData, 0, 0);
 }
 
+function makeBlackNWhite() {
+    const width = elements.canvas.width;
+    const height = elements.canvas.height;
+    const context = elements.canvas.getContext('2d');
+    let imgData = context.getImageData(0, 0, width, height);
+    let buffer = imgData.data;
+    let len = buffer.length;
+    let threshold = 127;
+
+    for (let i = 0; i < len; i += 4) {
+        // get approx. luma value from RGB
+        let luma = buffer[i] * 0.3 + buffer[i + 1] * 0.59 + buffer[i + 2] * 0.11;
+
+        // test against some threshold
+        luma = luma < threshold ? 0 : 255;
+
+        // write result back to all components
+        buffer[i] = luma;
+        buffer[i + 1] = luma;
+        buffer[i + 2] = luma;
+    }
+
+    // update canvas with the resulting bitmap data
+    context.putImageData(imgData, 0, 0);
+}
+
 function showPixelColor(e) {
     const pos = findPos(this);
     const x = e.pageX - pos.x;
