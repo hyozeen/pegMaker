@@ -67,8 +67,8 @@ function showPixelColor(e) {
 }
 
 function findPos(obj) {
-    const curleft = 0;
-    const curtop = 0;
+    let curleft = 0;
+    let curtop = 0;
     if (obj.offsetParent) {
         do {
             curleft += obj.offsetLeft;
@@ -84,10 +84,22 @@ function rgbToHex(r, g, b) {
     return ((r << 16) | (g << 8) | b).toString(16);
 }
 
+function hexToRgb(hex) {
+    return hex
+        .replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => '#' + r + r + g + g + b + b)
+        .substring(1)
+        .match(/.{2}/g)
+        .map((x) => parseInt(x, 16));
+}
+
 function randomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
 function randomColor() {
     return `rgb(${randomInt(256)}, ${randomInt(256)}, ${randomInt(256)})`;
+}
+
+function getDecimal(hex) {
+    return parseInt(hex, 16);
 }
