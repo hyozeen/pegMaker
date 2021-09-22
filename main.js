@@ -84,10 +84,12 @@ function makeGrayscale() {
     const context = elements.canvas.getContext('2d');
     let imgData = context.getImageData(0, 0, width, height);
 
-    let raster = imgData.data;
-    for (let i = 0; i < raster.length; i += 4) {
-        let gray = raster[i] * 0.299 + raster[i + 1] * 0.587 + raster[i + 2] * 0.114;
-        raster[i] = raster[i + 1] = raster[i + 2] = gray;
+    const data = imgData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        let avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        data[i] = avg; // red
+        data[i + 1] = avg; // green
+        data[i + 2] = avg; // blue
     }
 
     context.putImageData(imgData, 0, 0);
