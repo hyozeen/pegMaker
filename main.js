@@ -1,4 +1,5 @@
 const elements = {};
+let gridSize = 40;
 window.onload = function () {
     this.getElements();
     this.addClickEvent(elements.downloadBtn, this.downloadImage);
@@ -34,8 +35,8 @@ function getUploadedImage(files) {
         img.onload = function () {
             const ctx = elements.canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, 800, 800);
-            const number = elements.gridSize.value;
-            drawGrid(number);
+            gridSize = elements.gridSize.value;
+            drawGrid(gridSize);
         };
         img.src = e.target.result;
     };
@@ -62,6 +63,34 @@ function drawGrid(number) {
     }
     context.strokeStyle = 'white';
     context.stroke();
+}
+
+function makeMosaic() {
+    const width = elements.canvas.width;
+    const height = elements.canvas.height;
+    const context = elements.canvas.getContext('2d');
+    for (let r = 0; r < width; r++) {
+        for (let c = 0; c < height; c++) {
+            const pixel = context.getImageData(r, c, 1, 1).data;
+            const hex = '#' + ('000000' + rgbToHex(pixel[0], pixel[1], pixel[2])).slice(-6);
+            console.log(hex);
+        }
+    }
+}
+
+function makeGrayscale() {
+    const width = elements.canvas.width;
+    const height = elements.canvas.height;
+    const context = elements.canvas.getContext('2d');
+    let imgData = context.getImageData(0, 0, width, height);
+
+    let raster = imgData.data;
+    for (let i = 0; i < raster.length; i += 4) {
+        let gray = raster[i] * 0.299 + raster[i + 1] * 0.587 + raster[i + 2] * 0.114;
+        raster[i] = raster[i + 1] = raster[i + 2] = gray;
+    }
+
+    context.putImageData(imgData, 0, 0);
 }
 
 function showPixelColor(e) {
